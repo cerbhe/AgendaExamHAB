@@ -1,8 +1,66 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<AgendaExamHAB.ViewModels.ContactViewModel>
+@{
+    ViewData["Title"] = "Contacts Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Hugos' exam</h1>
+    <!-- <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>-->
 </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Person.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person.Nationality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonContact.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonContact.ContactName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonContact.Value)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.Nationality)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonContact.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonContact.ContactName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonContact.Value)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

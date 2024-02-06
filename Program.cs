@@ -1,4 +1,6 @@
 using AgendaExamHAB.Data;
+using AgendaExamHAB.Helpers;
+using AgendaExamHAB.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +13,8 @@ namespace AgendaExamHAB
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var connectionString = builder.Configuration.GetConnectionString("HABConnection") ?? throw new InvalidOperationException("Connection string 'HABConnection' not found.");
+            
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -20,7 +23,14 @@ namespace AgendaExamHAB
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
+            //HAB use the inversion control solid principal
+            builder.Services.AddTransient<ICurrentUserServices, CurrentUserServices>();
+            builder.Services.AddTransient<IPeople, PeopleDAO>();
+            builder.Services.AddTransient<IPersonContacts, PersonContactsDAO>();
+
+
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
